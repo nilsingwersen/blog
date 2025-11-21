@@ -15,5 +15,11 @@ export default defineConfig({
 
   site: "https://ingwersen.dev",
   integrations: [mdx(), sitemap()],
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+
+    imageService: "cloudflare",
+  }),
 });
