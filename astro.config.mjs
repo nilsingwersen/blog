@@ -10,7 +10,6 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://ingwersen.dev',
   integrations: [mdx(), sitemap()],
-
   fonts: [
     {
       provider: fontProviders.local(),
@@ -36,5 +35,5 @@ export default defineConfig({
     },
   ],
 
-  adapter: cloudflare(),
+  adapter: cloudflare({ imageService: 'compile' }),
 });
