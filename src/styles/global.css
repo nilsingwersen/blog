@@ -1,124 +1,223 @@
-/*
-  The CSS in this style tag is based off of Bear Blog's default CSS.
-  https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
-  License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
- */
-
 :root {
-  --accent: #2337ff;
-  --accent-dark: #000d8a;
-  --black: 15, 18, 25;
-  --gray: 96, 115, 159;
-  --gray-light: 229, 233, 240;
-  --gray-dark: 34, 41, 57;
-  --gray-gradient: rgba(var(--gray-light), 50%), #fff;
+  /* Neutrals share one cool hue and only vary in lightness and chroma */
+  --bg: oklch(100% 0 0);
+  --surface: oklch(97.6% 0.003 262);
+  --line: oklch(91.5% 0.01 262);
+  --muted: oklch(56.4% 0.034 262);
+  --ink-soft: oklch(44.7% 0.034 262);
+  --ink: oklch(26.8% 0.026 262);
+
+  /* Accent stays inside sRGB here; P3 screens get a more vivid version below */
+  --accent: oklch(51% 0.086 186);
+  --accent-dark: oklch(from var(--accent) calc(l - 0.07) calc(c * 0.82) h);
+  --accent-soft: color-mix(in oklab, var(--accent) 8%, transparent);
+  --on-accent: var(--bg);
+
+  --radius: 12px;
   --box-shadow:
-    0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-    0 16px 32px rgba(var(--gray), 33%);
+    0 1px 2px color-mix(in oklab, var(--ink) 6%, transparent),
+    0 8px 24px color-mix(in oklab, var(--ink) 8%, transparent);
+}
+@media (color-gamut: p3) {
+  :root {
+    --accent: oklch(51% 0.115 186);
+  }
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
 }
 body {
   font-family: var(--font-atkinson);
   margin: 0;
   padding: 0;
-  text-align: left;
-  background: linear-gradient(var(--gray-gradient)) no-repeat;
-  background-size: 100% 600px;
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-size: 18px;
+  line-height: 1.65;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  color: rgb(var(--gray-dark));
-  font-size: 20px;
-  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 main {
-  width: 720px;
-  max-width: calc(100% - 2em);
+  width: 820px;
+  max-width: 100%;
   margin: auto;
-  padding: 3em 1em;
+  padding: 3.5em 1.5em 4em;
 }
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
+h4 {
   margin: 0 0 0.5rem 0;
-  color: rgb(var(--black));
+  color: var(--ink);
   line-height: 1.2;
 }
 h1 {
-  font-size: 3.052em;
+  font-size: 2.75em;
+  letter-spacing: -0.02em;
 }
 h2 {
-  font-size: 2.441em;
+  font-size: 1.5em;
 }
 h3 {
-  font-size: 1.953em;
+  font-size: 1.1em;
 }
-h4 {
-  font-size: 1.563em;
+p {
+  margin: 0 0 1em;
 }
-h5 {
-  font-size: 1.25em;
+ul {
+  padding-left: 1.2em;
+}
+li + li {
+  margin-top: 0.3em;
 }
 strong,
 b {
   font-weight: 700;
+  color: var(--ink);
 }
 a {
   color: var(--accent);
+  text-underline-offset: 3px;
 }
 a:hover {
-  color: var(--accent);
-}
-p {
-  margin-bottom: 1em;
-}
-.prose p {
-  margin-bottom: 2em;
-}
-textarea {
-  width: 100%;
-  font-size: 16px;
-}
-input {
-  font-size: 16px;
-}
-table {
-  width: 100%;
+  color: var(--accent-dark);
 }
 img {
   max-width: 100%;
   height: auto;
-  border-radius: 8px;
-}
-code {
-  padding: 2px 5px;
-  background-color: rgb(var(--gray-light));
-  border-radius: 2px;
-}
-pre {
-  padding: 1.5em;
-  border-radius: 8px;
-}
-pre > code {
-  all: unset;
-}
-blockquote {
-  border-left: 4px solid var(--accent);
-  padding: 0 0 0 20px;
-  margin: 0px;
-  font-size: 1.333em;
 }
 hr {
   border: none;
-  border-top: 1px solid rgb(var(--gray-light));
+  border-top: 1px solid var(--line);
 }
+
+/* CV building blocks */
+.section {
+  margin-top: 3.5em;
+}
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin-bottom: 1.5em;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.portrait {
+  display: block;
+  width: 168px;
+  height: 168px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--bg);
+  box-shadow: var(--box-shadow);
+}
+.eyebrow {
+  margin: 0 0 0.25em;
+  font-size: 0.85em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.location {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  color: var(--muted);
+}
+.location svg {
+  width: 1em;
+  height: 1em;
+}
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.55em 1.1em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.9em;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--bg);
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background 0.15s ease;
+}
+.button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.button.primary {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--on-accent);
+}
+.button.primary:hover {
+  border-color: var(--accent-dark);
+  background: var(--accent-dark);
+  color: var(--on-accent);
+}
+.card {
+  padding: 1.25em 1.4em;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+}
+.card h3 {
+  margin-bottom: 0.35em;
+}
+.card p:last-child {
+  margin-bottom: 0;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tags li {
+  margin: 0;
+  padding: 0.15em 0.65em;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-size: 0.8em;
+  color: var(--ink);
+}
+
 @media (max-width: 720px) {
   body {
-    font-size: 18px;
+    font-size: 17px;
   }
   main {
-    padding: 1em;
+    padding: 2em 1.25em 3em;
+  }
+  h1 {
+    font-size: 2.2em;
+  }
+  .section {
+    margin-top: 2.5em;
   }
 }
 
@@ -130,12 +229,7 @@ hr {
   height: 1px;
   width: 1px;
   overflow: hidden;
-  /* IE6, IE7 - a 0 height clip, off to the bottom right of the visible 1px box */
-  clip: rect(1px 1px 1px 1px);
-  /* maybe deprecated but we need to support legacy browsers */
   clip: rect(1px, 1px, 1px, 1px);
-  /* modern browsers, clip-path works inwards from each corner */
   clip-path: inset(50%);
-  /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
   white-space: nowrap;
 }

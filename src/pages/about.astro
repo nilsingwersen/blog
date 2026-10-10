@@ -1,10 +1,71 @@
 ---
+import { Image } from 'astro:assets';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
-import { Image } from 'astro:assets';
 import Portrait from '../assets/nils-ingwersen.jpg';
 import { SITE_TITLE } from '../consts';
+
+const experience = [
+	{
+		period: '04/2024 – Present',
+		role: 'Full-Stack Software Developer',
+		place: 'Ubilabs, Hamburg',
+		points: [
+			'Build and ship web applications for different client products, mainly with React, TypeScript, and Next.js.',
+			'Work with designers, project managers, developers, and client stakeholders from early concepts through production.',
+			'Integrate APIs and AI features, implement server-side Next.js routes, and handle deployments on Google Cloud.',
+		],
+	},
+	{
+		period: '07/2022 – 04/2024',
+		role: 'Full-Stack Developer',
+		place: 'Boyens Media Group, Heide',
+		points: [
+			'Built and maintained customer-facing web applications and internal tools across the full stack.',
+			'Developed React and Next.js interfaces as well as PHP backend services and integrations.',
+		],
+	},
+];
+
+const projects = [
+	{
+		title: 'City Monitor for a Fire Department',
+		subtitle: 'Map frontend and real-time data',
+		text: 'Built the map frontend, data loading, and interactive MapLibre layers for a city-monitoring platform used daily by a fire department. Integrated DWD severe-weather data via WFS, WMS layers for precipitation and wind, polled live FlightAware data, and visualized river levels. Worked in a cross-functional team of five and supported the migration from Express and React to a consolidated Next.js application.',
+	},
+	{
+		title: 'Google Maps – Maps Grounding Demo',
+		subtitle: 'Gemini integration and Google Cloud deployment',
+		text: "Built most pages and all AI interactions for Google's public Maps Grounding demo, working directly with Google stakeholders in a cross-functional team. Integrated Gemini and Maps Grounding through Next.js API routes and built the tool execution layer that lets the agent control the map. A custom Gemini Live hook handles audio, sessions, and messages. Also owned deployment to Google Cloud Run using Cloud Build, Artifact Registry, and Cloud Storage.",
+	},
+];
+
+const skills = [
+	{ group: 'Web', items: ['React', 'TypeScript', 'Next.js', 'Zustand', 'TanStack Query', 'HTML', 'CSS'] },
+	{ group: 'Backend & AI', items: ['Node.js', 'Next.js API routes', 'REST APIs', 'Gemini SDK', 'LLM tool use'] },
+	{
+		group: 'Cloud & Delivery',
+		items: ['Google Cloud', 'Cloud Run', 'Cloud Build', 'Artifact Registry', 'Cloud Storage', 'Docker', 'Terraform (basic)'],
+	},
+	{ group: 'Maps & Geospatial', items: ['MapLibre', 'Mapbox', 'Google Maps', '@vis.gl/react-google-maps', 'deck.gl'] },
+	{ group: 'Workflow & Languages', items: ['Git', 'Code reviews', 'German (native)', 'English'] },
+];
+
+const education = [
+	{
+		period: '08/2019 – 07/2022',
+		role: 'IT Specialist for Application Development',
+		place: 'Boyens Media / Vocational Training Centre Dithmarschen',
+		text: 'Practice-oriented vocational training in professional software development, focused on web development, application logic, and data processing.',
+	},
+	{
+		period: '09/2016 – 02/2018',
+		role: 'Applied Computer Science',
+		place: 'Flensburg University of Applied Sciences',
+		text: 'Fundamentals of computer science, programming, and software development.',
+	},
+];
 ---
 
 <!doctype html>
@@ -15,122 +76,169 @@ import { SITE_TITLE } from '../consts';
 			description="About Nils Ingwersen – full-stack software developer from Hamburg working with TypeScript, React, Next.js, maps, and AI."
 		/>
 		<style>
-			.portrait {
-				display: block;
-				width: 160px;
-				height: 160px;
-				border-radius: 50%;
-				box-shadow: var(--box-shadow);
+			.intro {
+				display: grid;
+				grid-template-columns: auto 1fr;
+				align-items: center;
+				gap: 2em;
 			}
-			.location {
-				margin-top: -0.5em;
-				color: rgb(var(--gray));
+			.intro .portrait {
+				width: 128px;
+				height: 128px;
 			}
-			.entry {
-				margin-bottom: 1.5em;
+			.summary {
+				margin-top: 1.75em;
+				font-size: 1.1em;
 			}
-			.entry h3 {
-				margin-bottom: 0.25em;
+			.timeline-item {
+				display: grid;
+				grid-template-columns: 9.5em 1fr;
+				gap: 1.5em;
 			}
-			.meta {
-				margin: 0 0 0.5em 0;
-				color: rgb(var(--gray));
+			.timeline-item + .timeline-item {
+				margin-top: 2em;
 			}
-			dt {
+			.period {
+				padding-top: 0.15em;
+				font-size: 0.85em;
+				color: var(--muted);
+				font-variant-numeric: tabular-nums;
+			}
+			.timeline-item h3 {
+				margin-bottom: 0.1em;
+			}
+			.place {
+				margin-bottom: 0.5em;
 				font-weight: 700;
-				margin-top: 0.75em;
+				color: var(--accent);
+				font-size: 0.95em;
 			}
-			dd {
-				margin-left: 0;
+			.timeline-item ul {
+				margin: 0;
+			}
+			.projects {
+				display: grid;
+				gap: 1em;
+			}
+			.subtitle {
+				margin-bottom: 0.6em;
+				font-size: 0.85em;
+				color: var(--muted);
+			}
+			.skills {
+				display: grid;
+				gap: 1.1em;
+			}
+			.skill-row {
+				display: grid;
+				grid-template-columns: 9.5em 1fr;
+				gap: 1.5em;
+				align-items: baseline;
+			}
+			.skill-row h3 {
+				margin: 0;
+				font-size: 0.9em;
+			}
+			@media (max-width: 720px) {
+				.intro {
+					grid-template-columns: 1fr;
+					gap: 1em;
+				}
+				.timeline-item,
+				.skill-row {
+					grid-template-columns: 1fr;
+					gap: 0.4em;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<Image class="portrait" src={Portrait} width={320} height={320} alt="Portrait of Nils Ingwersen" />
-			<h1>About Me</h1>
-			<p class="location">📍 Based in Hamburg, Germany</p>
-			<p>
-				I'm Nils, a software developer based in Hamburg with four years of experience building web
-				products with TypeScript, React, and Next.js. I like working across the stack, especially on
-				products involving maps, data, or AI.
+			<section class="intro">
+				<Image class="portrait" src={Portrait} width={256} height={256} alt="Portrait of Nils Ingwersen" />
+				<div>
+					<p class="eyebrow">About Me</p>
+					<h1>Nils Ingwersen</h1>
+					<p class="location">
+						<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />
+							<circle cx="12" cy="9.5" r="2.5" />
+						</svg>
+						Based in Hamburg, Germany
+					</p>
+				</div>
+			</section>
+			<p class="summary">
+				I'm a software developer based in Hamburg with four years of experience building web products
+				with TypeScript, React, and Next.js. I like working across the stack, especially on products
+				involving maps, data, or AI.
 			</p>
 
-			<h2>Work Experience</h2>
-			<div class="entry">
-				<h3>Full-Stack Software Developer · Ubilabs, Hamburg</h3>
-				<p class="meta">04/2024 – Present</p>
-				<ul>
-					<li>Build and ship web applications for different client products, mainly with React, TypeScript, and Next.js.</li>
-					<li>Work with designers, project managers, developers, and client stakeholders from early concepts through production.</li>
-					<li>Integrate APIs and AI features, implement server-side Next.js routes, and handle deployments on Google Cloud.</li>
-				</ul>
-			</div>
-			<div class="entry">
-				<h3>Full-Stack Developer · Boyens Media Group, Heide</h3>
-				<p class="meta">07/2022 – 04/2024</p>
-				<ul>
-					<li>Built and maintained customer-facing web applications and internal tools across the full stack.</li>
-					<li>Developed React and Next.js interfaces as well as PHP backend services and integrations.</li>
-				</ul>
-			</div>
+			<section class="section">
+				<h2 class="section-title">Work Experience</h2>
+				{
+					experience.map((job) => (
+						<div class="timeline-item">
+							<p class="period">{job.period}</p>
+							<div>
+								<h3>{job.role}</h3>
+								<p class="place">{job.place}</p>
+								<ul>
+									{job.points.map((point) => <li>{point}</li>)}
+								</ul>
+							</div>
+						</div>
+					))
+				}
+			</section>
 
-			<h2>Project Highlights</h2>
-			<div class="entry">
-				<h3>City Monitor for a Fire Department</h3>
-				<p class="meta">Map frontend and real-time data</p>
-				<p>
-					Built the map frontend, data loading, and interactive MapLibre layers for a city-monitoring
-					platform used daily by a fire department. Integrated DWD severe-weather data via
-					WFS, WMS layers for precipitation and wind, polled live FlightAware data, and visualized river
-					levels. Worked in a cross-functional team of five and supported the migration from Express and
-					React to a consolidated Next.js application.
-				</p>
-			</div>
-			<div class="entry">
-				<h3>Google Maps – Maps Grounding Demo</h3>
-				<p class="meta">Gemini integration and Google Cloud deployment</p>
-				<p>
-					Built most pages and all AI interactions for Google's public Maps Grounding demo, working
-					directly with Google stakeholders in a cross-functional team. Integrated Gemini and Maps
-					Grounding through Next.js API routes and built the tool execution layer that lets the agent
-					control the map. A custom Gemini Live hook handles audio, sessions, and messages. Also owned
-					deployment to Google Cloud Run using Cloud Build, Artifact Registry, and Cloud Storage.
-				</p>
-			</div>
+			<section class="section">
+				<h2 class="section-title">Project Highlights</h2>
+				<div class="projects">
+					{
+						projects.map((project) => (
+							<article class="card">
+								<h3>{project.title}</h3>
+								<p class="subtitle">{project.subtitle}</p>
+								<p>{project.text}</p>
+							</article>
+						))
+					}
+				</div>
+			</section>
 
-			<h2>Skills</h2>
-			<dl>
-				<dt>Web</dt>
-				<dd>React, TypeScript, Next.js, Zustand, TanStack Query, HTML, CSS</dd>
-				<dt>Backend &amp; AI</dt>
-				<dd>Node.js, Next.js API routes, REST APIs, Gemini SDK, LLM tool use</dd>
-				<dt>Cloud &amp; Delivery</dt>
-				<dd>Google Cloud, Cloud Run, Cloud Build, Artifact Registry, Cloud Storage, Docker, Terraform (basic)</dd>
-				<dt>Maps &amp; Geospatial</dt>
-				<dd>MapLibre, Mapbox, Google Maps, @vis.gl/react-google-maps, deck.gl</dd>
-				<dt>Workflow &amp; Languages</dt>
-				<dd>Git, code reviews, German (native), English</dd>
-			</dl>
+			<section class="section">
+				<h2 class="section-title">Skills</h2>
+				<div class="skills">
+					{
+						skills.map((skill) => (
+							<div class="skill-row">
+								<h3>{skill.group}</h3>
+								<ul class="tags">
+									{skill.items.map((item) => <li>{item}</li>)}
+								</ul>
+							</div>
+						))
+					}
+				</div>
+			</section>
 
-			<h2>Education</h2>
-			<div class="entry">
-				<h3>IT Specialist for Application Development · Boyens Media / Vocational Training Centre Dithmarschen</h3>
-				<p class="meta">08/2019 – 07/2022</p>
-				<p>Practice-oriented vocational training in professional software development, focused on web development, application logic, and data processing.</p>
-			</div>
-			<div class="entry">
-				<h3>Applied Computer Science · Flensburg University of Applied Sciences</h3>
-				<p class="meta">09/2016 – 02/2018</p>
-				<p>Fundamentals of computer science, programming, and software development.</p>
-			</div>
-
-			<h2>Elsewhere</h2>
-			<ul>
-				<li><a href="https://www.linkedin.com/in/nilsingwersen" target="_blank">LinkedIn</a></li>
-				<li><a href="https://github.com/nilsingwersen" target="_blank">GitHub</a></li>
-			</ul>
+			<section class="section">
+				<h2 class="section-title">Education</h2>
+				{
+					education.map((entry) => (
+						<div class="timeline-item">
+							<p class="period">{entry.period}</p>
+							<div>
+								<h3>{entry.role}</h3>
+								<p class="place">{entry.place}</p>
+								<p>{entry.text}</p>
+							</div>
+						</div>
+					))
+				}
+			</section>
 		</main>
 		<Footer />
 	</body>

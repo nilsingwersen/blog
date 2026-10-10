@@ -5,6 +5,40 @@ import Footer from "../components/Footer.astro";
 import { Image } from "astro:assets";
 import Portrait from "../assets/nils-ingwersen.jpg";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+
+const focusAreas = [
+  {
+    title: "React & Next.js",
+    text: "Dynamic, component-driven interfaces and server-side API routes.",
+  },
+  {
+    title: "Maps & Geospatial",
+    text: "Interactive map experiences with MapLibre, Google Maps, and deck.gl.",
+  },
+  {
+    title: "AI Integrations",
+    text: "Gemini and LLM tool use wired up so agents can drive real UIs.",
+  },
+  {
+    title: "Cloud & Delivery",
+    text: "Shipping to Google Cloud with Cloud Run, Cloud Build, and Docker.",
+  },
+];
+
+const projects = [
+  {
+    title: "City Monitor for a Fire Department",
+    subtitle: "Map frontend and real-time data",
+    text: "Map frontend and real-time data layers for a city-monitoring platform used daily by a fire department.",
+    tags: ["MapLibre", "Next.js", "WFS / WMS", "Real-time data"],
+  },
+  {
+    title: "Google Maps Grounding Demo",
+    subtitle: "Gemini integration and Google Cloud deployment",
+    text: "Pages, AI interactions, and Cloud Run deployment for Google's public Maps Grounding demo with Gemini.",
+    tags: ["Gemini", "Google Maps", "Next.js", "Cloud Run"],
+  },
+];
 ---
 
 <!doctype html>
@@ -12,54 +46,122 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
     <style>
-      .portrait {
-        display: block;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        box-shadow: var(--box-shadow);
+      .hero {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 2.5em;
       }
-      .location {
-        margin-top: -0.5em;
-        color: rgb(var(--gray));
+      .hero h1 {
+        margin-bottom: 0.2em;
+      }
+      .intro {
+        margin-top: 2em;
+        font-size: 1.1em;
+        color: var(--ink-soft);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6em;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1em;
+      }
+      .card .subtitle {
+        margin-bottom: 0.6em;
+        font-size: 0.85em;
+        color: var(--muted);
+      }
+      .card .tags {
+        margin-top: 1em;
+      }
+      .projects .card {
+        display: flex;
+        flex-direction: column;
+      }
+      .projects .card .tags {
+        margin-top: auto;
+        padding-top: 1em;
+      }
+      @media (max-width: 720px) {
+        .hero {
+          grid-template-columns: 1fr;
+          gap: 1.25em;
+        }
+        .portrait {
+          width: 128px;
+          height: 128px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
     <Header />
     <main>
-      <Image class="portrait" src={Portrait} width={320} height={320} alt="Portrait of Nils Ingwersen" />
-      <h1>Hey, I'm Nils 👋</h1>
-      <p class="location">📍 Based in Hamburg, Germany</p>
-      <p>
-        I'm a full-stack software developer with four years of
-        experience building web products with TypeScript, React, and Next.js.
-        I like working across the stack, especially on products involving maps,
-        data, or AI. Currently I'm at <a href="https://ubilabs.com" target="_blank">Ubilabs</a>,
+      <section class="hero">
+        <Image class="portrait" src={Portrait} width={336} height={336} alt="Portrait of Nils Ingwersen" />
+        <div>
+          <p class="eyebrow">Full-Stack Software Developer</p>
+          <h1>Nils Ingwersen</h1>
+          <p class="location">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z" />
+              <circle cx="12" cy="9.5" r="2.5" />
+            </svg>
+            Based in Hamburg, Germany
+          </p>
+        </div>
+      </section>
+
+      <p class="intro">
+        Hey, I'm Nils 👋 I build web products with TypeScript, React, and Next.js and have been doing so
+        for four years. I like working across the stack, especially on products involving maps, data, or
+        AI. Currently I'm at <a href="https://ubilabs.com" target="_blank" rel="noopener">Ubilabs</a>,
         building web applications for different clients.
       </p>
+      <div class="actions">
+        <a class="button primary" href="/about">View experience →</a>
+        <a class="button" href="https://www.linkedin.com/in/nilsingwersen" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="button" href="https://github.com/nilsingwersen" target="_blank" rel="noopener">GitHub</a>
+      </div>
 
-      <h2>What I Do</h2>
-      <ul>
-        <li>React &amp; Next.js – Building dynamic, component-driven interfaces and server-side API routes.</li>
-        <li>Maps &amp; geospatial – Crafting interactive map experiences with MapLibre, Google Maps, and deck.gl.</li>
-        <li>AI integrations – Wiring up Gemini and LLM tool use so agents can drive real UIs.</li>
-        <li>Cloud &amp; delivery – Shipping to Google Cloud with Cloud Run, Cloud Build, and Docker.</li>
-      </ul>
+      <section class="section">
+        <h2 class="section-title">What I Do</h2>
+        <div class="grid">
+          {
+            focusAreas.map((area) => (
+              <div class="card">
+                <h3>{area.title}</h3>
+                <p>{area.text}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
 
-      <h2>Selected Projects</h2>
-      <ul>
-        <li>
-          <strong>City Monitor for a Fire Department</strong> – Map frontend and real-time data
-          layers for a city-monitoring platform used daily by a fire department.
-        </li>
-        <li>
-          <strong>Google Maps Grounding Demo</strong> – Pages, AI interactions, and Cloud Run
-          deployment for Google's public Maps Grounding demo with Gemini.
-        </li>
-      </ul>
-
-      <p><a href="/about">More about me →</a></p>
+      <section class="section projects">
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="grid">
+          {
+            projects.map((project) => (
+              <article class="card">
+                <h3>{project.title}</h3>
+                <p class="subtitle">{project.subtitle}</p>
+                <p>{project.text}</p>
+                <ul class="tags">
+                  {project.tags.map((tag) => <li>{tag}</li>)}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </section>
     </main>
     <Footer />
   </body>
