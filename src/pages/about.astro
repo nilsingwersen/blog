@@ -1,11 +1,137 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { Image } from 'astro:assets';
+import Portrait from '../assets/nils-ingwersen.jpg';
+import { SITE_TITLE } from '../consts';
 ---
 
-<Layout
-  title="About Me"
-  description="Lorem ipsum dolor sit amet"
-  pubDate={new Date("August 08 2021")}
-  heroImage={AboutHeroImage}
-/>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`About | ${SITE_TITLE}`}
+			description="About Nils Ingwersen – full-stack software developer from Hamburg working with TypeScript, React, Next.js, maps, and AI."
+		/>
+		<style>
+			.portrait {
+				display: block;
+				width: 160px;
+				height: 160px;
+				border-radius: 50%;
+				box-shadow: var(--box-shadow);
+			}
+			.location {
+				margin-top: -0.5em;
+				color: rgb(var(--gray));
+			}
+			.entry {
+				margin-bottom: 1.5em;
+			}
+			.entry h3 {
+				margin-bottom: 0.25em;
+			}
+			.meta {
+				margin: 0 0 0.5em 0;
+				color: rgb(var(--gray));
+			}
+			dt {
+				font-weight: 700;
+				margin-top: 0.75em;
+			}
+			dd {
+				margin-left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<Image class="portrait" src={Portrait} width={320} height={320} alt="Portrait of Nils Ingwersen" />
+			<h1>About Me</h1>
+			<p class="location">📍 Based in Hamburg, Germany</p>
+			<p>
+				I'm Nils, a software developer based in Hamburg with four years of experience building web
+				products with TypeScript, React, and Next.js. I like working across the stack, especially on
+				products involving maps, data, or AI.
+			</p>
+
+			<h2>Work Experience</h2>
+			<div class="entry">
+				<h3>Full-Stack Software Developer · Ubilabs, Hamburg</h3>
+				<p class="meta">04/2024 – Present</p>
+				<ul>
+					<li>Build and ship web applications for different client products, mainly with React, TypeScript, and Next.js.</li>
+					<li>Work with designers, project managers, developers, and client stakeholders from early concepts through production.</li>
+					<li>Integrate APIs and AI features, implement server-side Next.js routes, and handle deployments on Google Cloud.</li>
+				</ul>
+			</div>
+			<div class="entry">
+				<h3>Full-Stack Developer · Boyens Media Group, Heide</h3>
+				<p class="meta">07/2022 – 04/2024</p>
+				<ul>
+					<li>Built and maintained customer-facing web applications and internal tools across the full stack.</li>
+					<li>Developed React and Next.js interfaces as well as PHP backend services and integrations.</li>
+				</ul>
+			</div>
+
+			<h2>Project Highlights</h2>
+			<div class="entry">
+				<h3>City Monitor for a Fire Department</h3>
+				<p class="meta">Map frontend and real-time data</p>
+				<p>
+					Built the map frontend, data loading, and interactive MapLibre layers for a city-monitoring
+					platform used daily by a fire department. Integrated DWD severe-weather data via
+					WFS, WMS layers for precipitation and wind, polled live FlightAware data, and visualized river
+					levels. Worked in a cross-functional team of five and supported the migration from Express and
+					React to a consolidated Next.js application.
+				</p>
+			</div>
+			<div class="entry">
+				<h3>Google Maps – Maps Grounding Demo</h3>
+				<p class="meta">Gemini integration and Google Cloud deployment</p>
+				<p>
+					Built most pages and all AI interactions for Google's public Maps Grounding demo, working
+					directly with Google stakeholders in a cross-functional team. Integrated Gemini and Maps
+					Grounding through Next.js API routes and built the tool execution layer that lets the agent
+					control the map. A custom Gemini Live hook handles audio, sessions, and messages. Also owned
+					deployment to Google Cloud Run using Cloud Build, Artifact Registry, and Cloud Storage.
+				</p>
+			</div>
+
+			<h2>Skills</h2>
+			<dl>
+				<dt>Web</dt>
+				<dd>React, TypeScript, Next.js, Zustand, TanStack Query, HTML, CSS</dd>
+				<dt>Backend &amp; AI</dt>
+				<dd>Node.js, Next.js API routes, REST APIs, Gemini SDK, LLM tool use</dd>
+				<dt>Cloud &amp; Delivery</dt>
+				<dd>Google Cloud, Cloud Run, Cloud Build, Artifact Registry, Cloud Storage, Docker, Terraform (basic)</dd>
+				<dt>Maps &amp; Geospatial</dt>
+				<dd>MapLibre, Mapbox, Google Maps, @vis.gl/react-google-maps, deck.gl</dd>
+				<dt>Workflow &amp; Languages</dt>
+				<dd>Git, code reviews, German (native), English</dd>
+			</dl>
+
+			<h2>Education</h2>
+			<div class="entry">
+				<h3>IT Specialist for Application Development · Boyens Media / Vocational Training Centre Dithmarschen</h3>
+				<p class="meta">08/2019 – 07/2022</p>
+				<p>Practice-oriented vocational training in professional software development, focused on web development, application logic, and data processing.</p>
+			</div>
+			<div class="entry">
+				<h3>Applied Computer Science · Flensburg University of Applied Sciences</h3>
+				<p class="meta">09/2016 – 02/2018</p>
+				<p>Fundamentals of computer science, programming, and software development.</p>
+			</div>
+
+			<h2>Elsewhere</h2>
+			<ul>
+				<li><a href="https://www.linkedin.com/in/nilsingwersen" target="_blank">LinkedIn</a></li>
+				<li><a href="https://github.com/nilsingwersen" target="_blank">GitHub</a></li>
+			</ul>
+		</main>
+		<Footer />
+	</body>
+</html>

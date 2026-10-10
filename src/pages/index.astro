@@ -2,6 +2,8 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { Image } from "astro:assets";
+import Portrait from "../assets/nils-ingwersen.jpg";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
@@ -9,21 +11,55 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      .portrait {
+        display: block;
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        box-shadow: var(--box-shadow);
+      }
+      .location {
+        margin-top: -0.5em;
+        color: rgb(var(--gray));
+      }
+    </style>
   </head>
   <body>
     <Header />
     <main>
+      <Image class="portrait" src={Portrait} width={320} height={320} alt="Portrait of Nils Ingwersen" />
       <h1>Hey, I'm Nils 👋</h1>
+      <p class="location">📍 Based in Hamburg, Germany</p>
       <p>
-        Welcome to my blog! I'm a web developer from hamburg that writes about
-        web development with react.
+        I'm a full-stack software developer with four years of
+        experience building web products with TypeScript, React, and Next.js.
+        I like working across the stack, especially on products involving maps,
+        data, or AI. Currently I'm at <a href="https://ubilabs.com" target="_blank">Ubilabs</a>,
+        building web applications for different clients.
       </p>
-      <h2>What I Do</h2>
 
+      <h2>What I Do</h2>
       <ul>
-        <li>React – Building dynamic, component-driven interfaces.</li>
-        <li>MapLibre – Crafting interactive map experiences.</li>
+        <li>React &amp; Next.js – Building dynamic, component-driven interfaces and server-side API routes.</li>
+        <li>Maps &amp; geospatial – Crafting interactive map experiences with MapLibre, Google Maps, and deck.gl.</li>
+        <li>AI integrations – Wiring up Gemini and LLM tool use so agents can drive real UIs.</li>
+        <li>Cloud &amp; delivery – Shipping to Google Cloud with Cloud Run, Cloud Build, and Docker.</li>
       </ul>
+
+      <h2>Selected Projects</h2>
+      <ul>
+        <li>
+          <strong>City Monitor for a Fire Department</strong> – Map frontend and real-time data
+          layers for a city-monitoring platform used daily by a fire department.
+        </li>
+        <li>
+          <strong>Google Maps Grounding Demo</strong> – Pages, AI interactions, and Cloud Run
+          deployment for Google's public Maps Grounding demo with Gemini.
+        </li>
+      </ul>
+
+      <p><a href="/about">More about me →</a></p>
     </main>
     <Footer />
   </body>
